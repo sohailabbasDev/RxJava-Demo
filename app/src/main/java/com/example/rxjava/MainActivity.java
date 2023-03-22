@@ -1,6 +1,8 @@
 package com.example.rxjava;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +18,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+    private RecyclerView recyclerView;
+    private ItemAdaptor adaptor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +30,14 @@ public class MainActivity extends AppCompatActivity {
         animals.add("Lion");
         animals.add("Tiger");
         animals.add("Cat");
-        animals.add("Elephant");
+
+
+        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adaptor = new ItemAdaptor(animals, this);
+        recyclerView.setAdapter(adaptor);
+
 
         Observable.just(animals)
                 .subscribeOn(Schedulers.io())
@@ -39,16 +50,19 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(ArrayList arrayList) {
+                        arrayList.add("Elephant");
+                        arrayList.add("Cow");
+                        adaptor.notifyDataSetChanged();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e(TAG, "onError: " + e.getMessage() );
                     }
 
                     @Override
                     public void onComplete() {
-
+                        Log.e(TAG, "onComplete: " + "Completed" );
                     }
                 });
     }
