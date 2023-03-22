@@ -1,11 +1,14 @@
 package com.example.rxjava;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+
+import com.example.rxjava.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 
@@ -18,26 +21,22 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private RecyclerView recyclerView;
     private ItemAdaptor adaptor;
+
+    public ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         ArrayList animals = new ArrayList();
         animals.add("Lion");
         animals.add("Tiger");
         animals.add("Cat");
 
-
-        recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adaptor = new ItemAdaptor(animals, this);
-        recyclerView.setAdapter(adaptor);
-
+        binding.setAdaptor(adaptor);
 
         Observable.just(animals)
                 .subscribeOn(Schedulers.io())
