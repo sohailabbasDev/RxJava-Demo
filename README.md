@@ -1,1 +1,2 @@
-Simple Rxjava app to demonstrate
+# RxJava
+Very simple Android application showing RxJava concept

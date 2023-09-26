@@ -11,14 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+//Simple adapter
 public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
     ArrayList<String> itemList1;
     Context context;
+
+    //adapter constructor
     public ItemAdaptor(ArrayList animals, Context context1) {
         itemList1 = animals;
         context = context1;
     }
 
+    // item adapter
     @NonNull
     @Override
     public ItemAdaptor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,6 +41,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
         return itemList1.size();
     }
 
+    //view holder inner class
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView name;
@@ -44,6 +49,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            //setting up the view, initializing it
             name = itemView.findViewById(R.id.name);
         }
     }
