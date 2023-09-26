@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+//Newly commented
 //Simple adapter
 public class ItemAdaptor extends RecyclerView.Adapter<ItemAdaptor.ViewHolder> {
     ArrayList<String> itemList1;
